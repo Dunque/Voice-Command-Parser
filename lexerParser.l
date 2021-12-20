@@ -10,25 +10,25 @@
 eol         \n
 tab         \t
 space       " "
-buscar      ("busca" | "encuentra") ("me")+ /i
-crear       "crea" ("me")+ /i
-abrir       ("abre") ("me")+ /i
-cerrar      ("cierra") ("me")+ /i
-cuerpo      [^\t\n ]+[]*
-engine      ("google" | "bing" | "wikipedia" | "en google" | "en bing" | "en wikipedia") /i
-carpeta     ("carpeta") /i
-archivo     ("archivo") /i
-programa    ("spotify" | "calculadora") /i
+buscar      ("busca"|"encuentra")"me"?
+crear       "crea""me"+
+abrir       "abre""me"+
+cerrar      "cierra""me"+
+engine      "google"|"bing"|"wikipedia"|"en google"|"en bing"|"en wikipedia"
+carpeta     "carpeta"
+archivo     "archivo"
+programa    "spotify"|"calculadora"
+cuerpo      [^ \t\n]+(^buscar|crear|abrir|cerra|engine|carpeta|archivo|eol)*
 
 %%
-{buscar}    { yylval.valString = strdup(yytext); return BUSCAR; }
-{crear}     { yylval.valString = strdup(yytext); return CREAR; }
-{abrir}     { yylval.valString = strdup(yytext); return ABRIR; }
-{engine}    { yylval.valString = strdup(yytext); return ENGINE; } 
-{carpeta}   { yylval.valString = strdup(yytext); return CARPETA; }
-{archivo}   { yylval.valString = strdup(yytext); return ARCHIVO; }
-{programa}  { yylval.valString = strdup(yytext); return PROGRAMA; }
-{cuerpo}    { yylval.valString = strdup(yytext); return CUERPO; }
+{buscar}    { printf("-buscar: %s\n", yytext); yylval.valString = strdup(yytext); return BUSCAR; }
+{crear}     { printf("-crear: %s\n", yytext); yylval.valString = strdup(yytext); return CREAR; }
+{abrir}     { printf("-abrir: %s\n", yytext); yylval.valString = strdup(yytext); return ABRIR; }
+{engine}    { printf("-engine: %s\n", yytext); yylval.valString = strdup(yytext); return ENGINE; } 
+{carpeta}   { printf("-carpeta: %s\n", yytext); yylval.valString = strdup(yytext); return CARPETA; }
+{archivo}   { printf("-archivo: %s\n", yytext); yylval.valString = strdup(yytext); return ARCHIVO; }
+{programa}  { printf("-programa: %s\n", yytext); yylval.valString = strdup(yytext); return PROGRAMA; }
+{cuerpo}    { printf("-cuerpo: %s\n", yytext); yylval.valString = strdup(yytext); return CUERPO; }
 {space}     {;}
 {tab}       {;}
 {eol}       {;}
