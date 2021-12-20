@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int numLinea = 0;
 
@@ -28,8 +29,8 @@ accion : busqueda
 	| ejecucion
 	;
 
-busqueda : BUSCAR CUERPO ENGINE
-	| BUSCAR ENGINE CUERPO
+busqueda : BUSCAR CUERPO ENGINE { system ("python3 search.py \"%s\" \"%s\"", ENGINE, CUERPO); }
+	| BUSCAR ENGINE CUERPO { system ("python3 search.py \"%s\" \"%s\"", ENGINE, CUERPO); }
 	;
 
 creacion : CREAR CARPETA CUERPO
