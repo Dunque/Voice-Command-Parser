@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 int numLinea = 0;
 char* cuerpoAcc;
@@ -40,17 +42,18 @@ busqueda : BUSCAR cuerpoRec ENGINE {
 								sprintf(str, "python3 search.py \"%s\" \"%s\"", $2, $3);
 								system (str); 
 							  }
+	|error		{yyerro()}
 	;
 
 cuerpoRec : CUERPO {$$ = $1;}
 	| cuerpoRec CUERPO { strcat(strcat($1," "),$2);}
 	;
 
-creacion : CREAR CARPETA CUERPO
-	| CREAR ARCHIVO CUERPO
+creacion : CREAR CARPETA CUERPO		{if (mkdir($3)==-1) printf("Error %s",strerror(errno));}
+	| CREAR ARCHIVO CUERPO			{if (open($3)==-1) printf("Error %s",strerror(errno));}
 	;
 
-ejecucion : ABRIR PROGRAMA
+ejecucion : ABRIR PROGRAMA			{}
 	;
 
 %%
