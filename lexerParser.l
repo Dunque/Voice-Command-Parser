@@ -14,7 +14,7 @@ buscar      ("busca"|"encuentra")"me"?
 crear       "crea""me"+
 abrir       "abre""me"+
 cerrar      "cierra""me"+
-engine      "google"|"bing"|"wikipedia"|"en google"|"en bing"|"en wikipedia"
+engine      "google"|"bing"|"duckduckgo"|"en google"|"en bing"|"en duckduckgo"
 carpeta     "carpeta"
 archivo     "archivo"
 programa    "spotify"|"calculadora"

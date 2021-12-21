@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 int numLinea = 0;
+char* cuerpoAcc;
 
 void yyerror (char const *);
 extern int yylex();
@@ -13,7 +14,7 @@ extern int yylineno;
 	char * valString;
 }
 %token <valString> BUSCAR CREAR ABRIR CUERPO ENGINE CARPETA ARCHIVO PROGRAMA
-%type <valString> orden accion busqueda creacion ejecucion
+%type <valString> orden accion busqueda creacion ejecucion cuerpoRec
 %start S
 %%
 
@@ -29,8 +30,20 @@ accion : busqueda
 	| ejecucion
 	;
 
-busqueda : BUSCAR CUERPO ENGINE { system ("python3 search.py \"%s\" \"%s\"", ENGINE, CUERPO); }
-	| BUSCAR ENGINE CUERPO { system ("python3 search.py \"%s\" \"%s\"", ENGINE, CUERPO); }
+busqueda : BUSCAR cuerpoRec ENGINE { 
+									 char str[300];
+									 sprintf(str, "python3 search.py \"%s\" \"%s\"", $3, $2);
+									 system (str);
+								   }
+	| BUSCAR ENGINE cuerpoRec {	
+								char str[300];
+								sprintf(str, "python3 search.py \"%s\" \"%s\"", $2, $3);
+								system (str); 
+							  }
+	;
+
+cuerpoRec : CUERPO {$$ = $1;}
+	| cuerpoRec CUERPO { strcat(strcat($1," "),$2);}
 	;
 
 creacion : CREAR CARPETA CUERPO
