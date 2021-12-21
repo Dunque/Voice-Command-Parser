@@ -1,3 +1,6 @@
+Roi Santos Ríos
+Miguel Pérez Gómara
+
 Para la ejecución de las instrucciones que reconoce el parser, hemos hecho varios scripts en python,
 uno por cada tipo de comando distinto: uno para las búsquedas, otro para la creación de archivos o carpetas
 y otro para la ejecución de programas.
@@ -9,3 +12,64 @@ de creación recibe el tipo de fichero a crear (carpeta o archivo) y el nombre. 
 solo recibe el programa a ejecutar.
 Por ahora los posibles programas para ejecutar son: _______________________
 
+
+GESTIÓN DE ERRORES
+
+Para el caso de escribir una palabra cualquiera sin un comando asociado, hemos añadido el caso de error en el no-terminal
+de selección de comando. No nos aporta mucho detalle, más allá de decirnos que la palabra encontrada no es un comando:
+    accion : busqueda
+        | creacion
+        | ejecucion
+        | error { 
+                char str[300];
+                sprintf(str, "Sintaxis errónea - no se reconoció ningún comando %s", $1);
+                yyerror(str);
+                }
+        ;
+
+Hemos realizado, para cada posible comando, los posibles errores que se pueden dar. De esta forma, a pesar de tener
+que repetir bastante las estructuras de error, podemos dar muchos detalles acerca de él. Hemos preferido este acercamiento
+al problema que simplemente poner la etiqueta error y usar un mensaje genérico. De este modo, el usuario percibe de forma 
+más clara cómo utilizar los comandos.
+
+Para el caso de realizar búsquedas, hemos incorporado las estructuras que nos permiten capturar cualquier caso de error 
+posible para las búsquedas:
+	| BUSCAR cuerpoRec error {
+							   char str[300];
+							   sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez del motor de búsqueda", $1, $2,$3);
+							   yyerror(str);
+							 }
+	| BUSCAR ENGINE error {
+							char str[300];
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un cuerpo de búsqueda válido", $1, $2, $3);
+							yyerror(str);
+						  }
+	| BUSCAR error {
+					 char str[300];
+					 sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un cuerpo de búsqueda o motor válido", $1, $2);
+					 yyerror(str);
+				   }
+
+Hemos hecho lo mismo para el comando de crear carpetas o archivos, con lo siguiente:
+	| CREAR error {
+					char str[300];
+					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de \"carpeta\" o \"archivo\"", $1, $2);
+					yyerror(str);
+				  }
+	| CREAR CARPETA error {
+							char str[300];
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un nombre de carpeta válido", $1, $2, $3);
+							yyerror(str);
+				  		  }
+	| CREAR ARCHIVO error {
+							char str[300];
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un nombre de archivo válido", $1, $2, $3);
+							yyerror(str);
+				  		  }
+
+Y por último para el comando de ejecutar programas, solo necesitamos cubrir un caso:
+	| ABRIR error {
+					char str[300];
+					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un programa válido", $1, $2);
+					yyerror(str);
+				  }
