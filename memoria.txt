@@ -4,14 +4,14 @@ Miguel Pérez Gómara
 OBJETIVO
 
 El objetivo de este programa es reconocer y ejecutar, mediante voz o texto, una serie de comandos preestablecidos. En este caso,
-el programa nos permite realizar búsquedas en varios motores, nos permite crear archivos y carpetas y tambiñen nos permite 
+el programa nos permite realizar búsquedas en varios motores, nos permite crear archivos y carpetas y también nos permite 
 ejecutar programas. Los comandos que hemos implementado no son más que una pequeña parte de todo lo que se podría ejecutar
 en esta práctica, ya que añadir comandos nuevos nos resultaría muy sencillo debido a cómo hemos implementado el lexer y el
 párser. Bastaría con añadir algunas palabras clave al lexer, dependiendo del comando en cuestión, y luego añadirlas a mayores en
 el párser siguiendo la misma forma que las que ya implementamos.
 
 La propia salida del programa es la ejecución del comando. En nuestro caso, las búsquedas abren una pestaña nueva en el navegador
-por defecto con la búsqueda realizada en el motor que se introduce. La reación de carpetas o archivos se realiza sobre la raíz de
+por defecto con la búsqueda realizada en el motor que se introduce. La creación de carpetas o archivos se realiza sobre la raíz de
 este programa, y la ejecución de programas depende de cada distro de linux, pero en los casos de ejemplo que hemos añadido no
 debería haber mucho cambio.
 
@@ -22,7 +22,7 @@ Tenemos casos específicos para los buscadores, que estos incluyen la proposici�
 y también para identificar si queremos crear un archivo o carpeta, reconocemos tanto "una carpeta" o "un archivo" como "carpeta"
 o "archivo" a secas.
 
-En el caso de las busquedas web se pasan por separado cada palabra de la consulta como cuertpo, para ser juntadas en el parser.
+En el caso de las busquedas web se pasan por separado cada palabra de la consulta como cuerpo, para ser juntadas en el parser.
 Estos cuerpos de busqueda no pueden contener palabras clave, ya que provoca errores de sintaxis en el parser; realizando 
 busquedas de solo partes del cuerpo y errores si las partes resultantes no cumplen con la gramática.
 
@@ -141,7 +141,7 @@ EJEMPLOS DE EJECUCIÓN
 
 Primero de todo, debemos compilar el programa con el makefile. Cabe decir que la compilacón produce un warning, y este se debemos
 a que le hemos dado el tipo String a la etiqueta error, que por defecto viene reservado para los errores. Pero de esta manera, nos permite
-imprimir por pantalla el contenido que se guardó en la etiqueta, permitiéndonos hacer una mejpopr gestión de errores.
+imprimir por pantalla el contenido que se guardó en la etiqueta, permitiéndonos hacer una mejor gestión de errores.
 
 > make
 
