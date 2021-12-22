@@ -449,18 +449,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  19
+#define YYFINAL  20
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   28
+#define YYLAST   32
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  11
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  21
+#define YYNRULES  23
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  30
+#define YYNSTATES  32
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   265
@@ -510,9 +510,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    24,    24,    27,    28,    31,    32,    33,    34,    41,
-      46,    51,    56,    63,    64,    67,    68,    69,    74,    79,
-      86,    87
+       0,    24,    24,    25,    32,    33,    36,    37,    38,    39,
+      46,    51,    56,    61,    66,    73,    74,    77,    78,    79,
+      84,    89,    96,   102
 };
 #endif
 
@@ -555,7 +555,7 @@ static const yytype_int16 yytoknum[] =
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-3)
+#define YYTABLE_NINF (-4)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -564,9 +564,10 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      23,    -5,    -2,     2,    -1,     8,    12,    -5,    -5,    -5,
-      -5,    -5,    13,     0,    -5,    17,    19,    -5,    -5,    -5,
-      -5,    -5,    -4,    -5,    -5,    -5,    -5,    -5,    -5,    -5
+      27,     4,     0,     2,    -1,     5,    15,    -5,    -5,    -5,
+      -5,    -5,    -5,    11,     7,    -5,    20,    21,    -5,    -5,
+      -5,    -5,    -5,    -5,    -4,    -5,    -5,    -5,    -5,    -5,
+      -5,    -5
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -574,21 +575,22 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     8,     0,     0,     0,     0,     0,     3,     5,     6,
-       7,    13,     0,     0,    17,     0,     0,    21,    20,     1,
-       4,    12,    10,    11,    14,     9,    18,    15,    19,    16
+       0,     9,     0,     0,     0,     0,     0,     4,     6,     7,
+       8,    14,    15,     0,     0,    19,     0,     0,    23,    22,
+       1,     9,     5,    13,    11,    12,    16,    10,    20,    17,
+      21,    18
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5,    -5,    15,    -5,    10,    -5,    -5
+      -5,    -5,    -5,    17,    -5,    12,    -5,    -5
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     5,     6,     7,     8,    13,     9,    10
+       0,     5,     6,     7,     8,    14,     9,    10
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -596,16 +598,18 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      17,    23,    24,    14,    11,    12,    24,    25,    19,    18,
-      15,    16,    -2,     1,    21,     2,     3,     4,    26,    11,
-      28,    20,    22,    27,     1,    29,     2,     3,     4
+      18,    11,    26,    15,    -3,    20,    12,    13,    25,    19,
+      16,    17,    23,    26,    27,    -2,    21,    12,     2,     3,
+       4,    28,    30,    22,     0,    24,    29,    31,     1,     0,
+       2,     3,     4
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,     1,     6,     1,     6,     7,     6,     7,     0,    10,
-       8,     9,     0,     1,     1,     3,     4,     5,     1,     6,
-       1,     6,    12,     6,     1,     6,     3,     4,     5
+       1,     1,     6,     1,     0,     0,     6,     7,     1,    10,
+       8,     9,     1,     6,     7,     0,     1,     6,     3,     4,
+       5,     1,     1,     6,    -1,    13,     6,     6,     1,    -1,
+       3,     4,     5
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -613,24 +617,25 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     1,     3,     4,     5,    12,    13,    14,    15,    17,
-      18,     6,     7,    16,     1,     8,     9,     1,    10,     0,
-      14,     1,    16,     1,     6,     7,     1,     6,     1,     6
+      18,     1,     6,     7,    16,     1,     8,     9,     1,    10,
+       0,     1,    14,     1,    16,     1,     6,     7,     1,     6,
+       1,     6
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    13,    13,    14,    14,    14,    14,    15,
-      15,    15,    15,    16,    16,    17,    17,    17,    17,    17,
-      18,    18
+       0,    11,    12,    12,    13,    13,    14,    14,    14,    14,
+      15,    15,    15,    15,    15,    16,    16,    17,    17,    17,
+      17,    17,    18,    18
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     1,     2,     1,     1,     1,     1,     3,
-       3,     3,     3,     1,     2,     3,     3,     2,     3,     3,
-       2,     2
+       0,     2,     1,     1,     1,     2,     1,     1,     1,     1,
+       3,     3,     3,     3,     2,     1,     2,     3,     3,     2,
+       3,     3,     2,     2
 };
 
 
@@ -1097,128 +1102,153 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 8: /* accion: error  */
-#line 34 "lexerParser.y"
+  case 3: /* S: error  */
+#line 25 "lexerParser.y"
+                {			 
+			 char str[300];
+			 sprintf(str, "Sintaxis errónea - Archivo input vacío");
+			 yyerror(str);
+		    }
+#line 1113 "lexerParser.tab.c"
+    break;
+
+  case 9: /* accion: error  */
+#line 39 "lexerParser.y"
                 { 
 			 char str[300];
 			 sprintf(str, "Sintaxis errónea - no se reconoció ningún comando %s", (yyvsp[0].valString));
 			 yyerror(str);
 			}
-#line 1108 "lexerParser.tab.c"
+#line 1123 "lexerParser.tab.c"
     break;
 
-  case 9: /* busqueda: BUSCAR cuerpoRec ENGINE  */
-#line 41 "lexerParser.y"
+  case 10: /* busqueda: BUSCAR cuerpoRec ENGINE  */
+#line 46 "lexerParser.y"
                                    { 
 									 char str[300];
-									 sprintf(str, "python3 search.py \"%s\" \"%s\"", (yyvsp[0].valString), (yyvsp[-1].valString));
+									 sprintf(str, "python3 search.py \"%s\" \"%s\" &", (yyvsp[0].valString), (yyvsp[-1].valString));
 									 system (str);
 								   }
-#line 1118 "lexerParser.tab.c"
+#line 1133 "lexerParser.tab.c"
     break;
 
-  case 10: /* busqueda: BUSCAR ENGINE cuerpoRec  */
-#line 46 "lexerParser.y"
+  case 11: /* busqueda: BUSCAR ENGINE cuerpoRec  */
+#line 51 "lexerParser.y"
                                   {	
 								char str[300];
-								sprintf(str, "python3 search.py \"%s\" \"%s\"", (yyvsp[-1].valString), (yyvsp[0].valString));
+								sprintf(str, "python3 search.py \"%s\" \"%s\" &", (yyvsp[-1].valString), (yyvsp[0].valString));
 								system (str); 
 							  }
-#line 1128 "lexerParser.tab.c"
+#line 1143 "lexerParser.tab.c"
     break;
 
-  case 11: /* busqueda: BUSCAR cuerpoRec error  */
-#line 51 "lexerParser.y"
+  case 12: /* busqueda: BUSCAR cuerpoRec error  */
+#line 56 "lexerParser.y"
                                  {
 							   char str[300];
-							   sprintf(str, "Sintaxis errónea - %s %s, se encontró %s en vez del motor de búsqueda", (yyvsp[-2].valString), (yyvsp[-1].valString),(yyvsp[0].valString));
+							   sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez del motor de búsqueda", (yyvsp[-2].valString), (yyvsp[-1].valString),(yyvsp[0].valString));
 							   yyerror(str);
 							 }
-#line 1138 "lexerParser.tab.c"
+#line 1153 "lexerParser.tab.c"
     break;
 
-  case 12: /* busqueda: BUSCAR ENGINE error  */
-#line 56 "lexerParser.y"
+  case 13: /* busqueda: BUSCAR ENGINE error  */
+#line 61 "lexerParser.y"
                               {
 							char str[300];
-							sprintf(str, "Sintaxis errónea - %s %s, se encontró %s en vez de un cuerpo de búsqueda válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un cuerpo de búsqueda válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
 							yyerror(str);
 						  }
-#line 1148 "lexerParser.tab.c"
+#line 1163 "lexerParser.tab.c"
     break;
 
-  case 13: /* cuerpoRec: CUERPO  */
-#line 63 "lexerParser.y"
+  case 14: /* busqueda: BUSCAR error  */
+#line 66 "lexerParser.y"
+                       {
+					 char str[300];
+					 sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un cuerpo de búsqueda o motor válido", (yyvsp[-1].valString), (yyvsp[0].valString));
+					 yyerror(str);
+				   }
+#line 1173 "lexerParser.tab.c"
+    break;
+
+  case 15: /* cuerpoRec: CUERPO  */
+#line 73 "lexerParser.y"
                    {(yyval.valString) = (yyvsp[0].valString);}
-#line 1154 "lexerParser.tab.c"
+#line 1179 "lexerParser.tab.c"
     break;
 
-  case 14: /* cuerpoRec: cuerpoRec CUERPO  */
-#line 64 "lexerParser.y"
-                           {strcat(strcat((yyvsp[-1].valString)," "),(yyvsp[0].valString));}
-#line 1160 "lexerParser.tab.c"
-    break;
-
-  case 15: /* creacion: CREAR CARPETA CUERPO  */
-#line 67 "lexerParser.y"
-                                {if (mkdir((yyvsp[0].valString),S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==-1) printf("Error %s",strerror(errno));}
-#line 1166 "lexerParser.tab.c"
-    break;
-
-  case 16: /* creacion: CREAR ARCHIVO CUERPO  */
-#line 68 "lexerParser.y"
-                               {if (creat((yyvsp[0].valString),S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==-1) printf("Error %s",strerror(errno));}
-#line 1172 "lexerParser.tab.c"
-    break;
-
-  case 17: /* creacion: CREAR error  */
-#line 69 "lexerParser.y"
-                      {
-					char str[300];
-					sprintf(str, "Sintaxis errónea - %s, se encontró %s en vez de \"carpeta\" o \"archivo\"", (yyvsp[-1].valString), (yyvsp[0].valString));
-					yyerror(str);
-				  }
-#line 1182 "lexerParser.tab.c"
-    break;
-
-  case 18: /* creacion: CREAR CARPETA error  */
+  case 16: /* cuerpoRec: cuerpoRec CUERPO  */
 #line 74 "lexerParser.y"
-                              {
-							char str[300];
-							sprintf(str, "Sintaxis errónea - %s %s, se encontró %s en vez de un nombre de carpeta válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
-							yyerror(str);
-				  		  }
-#line 1192 "lexerParser.tab.c"
+                           {strcat(strcat((yyvsp[-1].valString)," "),(yyvsp[0].valString));}
+#line 1185 "lexerParser.tab.c"
     break;
 
-  case 19: /* creacion: CREAR ARCHIVO error  */
+  case 17: /* creacion: CREAR CARPETA CUERPO  */
+#line 77 "lexerParser.y"
+                                {if (mkdir((yyvsp[0].valString),S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==-1) printf("Error %s",strerror(errno));}
+#line 1191 "lexerParser.tab.c"
+    break;
+
+  case 18: /* creacion: CREAR ARCHIVO CUERPO  */
+#line 78 "lexerParser.y"
+                               {if (creat((yyvsp[0].valString),S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==-1) printf("Error %s",strerror(errno));}
+#line 1197 "lexerParser.tab.c"
+    break;
+
+  case 19: /* creacion: CREAR error  */
 #line 79 "lexerParser.y"
-                              {
-							char str[300];
-							sprintf(str, "Sintaxis errónea - %s %s, se encontró %s en vez de un nombre de archivo válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
-							yyerror(str);
-				  		  }
-#line 1202 "lexerParser.tab.c"
-    break;
-
-  case 20: /* ejecucion: ABRIR PROGRAMA  */
-#line 86 "lexerParser.y"
-                           {}
-#line 1208 "lexerParser.tab.c"
-    break;
-
-  case 21: /* ejecucion: ABRIR error  */
-#line 87 "lexerParser.y"
                       {
 					char str[300];
-					sprintf(str, "Sintaxis errónea - %s, se encontró %s en vez de un programa válido", (yyvsp[-1].valString), (yyvsp[0].valString));
+					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de \"carpeta\" o \"archivo\"", (yyvsp[-1].valString), (yyvsp[0].valString));
 					yyerror(str);
 				  }
-#line 1218 "lexerParser.tab.c"
+#line 1207 "lexerParser.tab.c"
+    break;
+
+  case 20: /* creacion: CREAR CARPETA error  */
+#line 84 "lexerParser.y"
+                              {
+							char str[300];
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un nombre de carpeta válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
+							yyerror(str);
+				  		  }
+#line 1217 "lexerParser.tab.c"
+    break;
+
+  case 21: /* creacion: CREAR ARCHIVO error  */
+#line 89 "lexerParser.y"
+                              {
+							char str[300];
+							sprintf(str, "Sintaxis errónea - %s %s - se encontró %s en vez de un nombre de archivo válido", (yyvsp[-2].valString), (yyvsp[-1].valString), (yyvsp[0].valString));
+							yyerror(str);
+				  		  }
+#line 1227 "lexerParser.tab.c"
+    break;
+
+  case 22: /* ejecucion: ABRIR PROGRAMA  */
+#line 96 "lexerParser.y"
+                           {
+							 char str[300];
+							 sprintf(str, "%s &", (yyvsp[0].valString));
+							 system (str); 
+							 if(system (str)==-1) printf("Error %s",strerror(errno));
+							}
+#line 1238 "lexerParser.tab.c"
+    break;
+
+  case 23: /* ejecucion: ABRIR error  */
+#line 102 "lexerParser.y"
+                      {
+					char str[300];
+					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un programa válido", (yyvsp[-1].valString), (yyvsp[0].valString));
+					yyerror(str);
+				  }
+#line 1248 "lexerParser.tab.c"
     break;
 
 
-#line 1222 "lexerParser.tab.c"
+#line 1252 "lexerParser.tab.c"
 
       default: break;
     }
@@ -1412,7 +1442,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 94 "lexerParser.y"
+#line 109 "lexerParser.y"
 
 int main(int argc, char *argv[]) {
 extern FILE *yyin;

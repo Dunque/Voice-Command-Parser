@@ -1,7 +1,7 @@
 FUENTE = lexerParser
 INPUT = input
 
-all: compile run
+all: compile
 
 compile:
 	flex $(FUENTE).l

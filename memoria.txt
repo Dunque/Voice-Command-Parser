@@ -1,18 +1,80 @@
 Roi Santos Ríos
 Miguel Pérez Gómara
 
-Para la ejecución de las instrucciones que reconoce el parser, hemos hecho varios scripts en python,
-uno por cada tipo de comando distinto: uno para las búsquedas, otro para la creación de archivos o carpetas
-y otro para la ejecución de programas.
-Estos scripts son ejecutados con la funcion system(), y en caso de que no funcionen, hay que revisar si la 
-instalación de python en el equipo se llama con el comando "python" o el comando "python3". En el caso de 
-nuestras máquinas, usamos "python3". Con cambiarlo en las llamadas a system() ya sería suficiente.
-El script de búsqueda recibe como parámetro el nombre del buscador y el propio cuerpo de la búsqueda, el 
-de creación recibe el tipo de fichero a crear (carpeta o archivo) y el nombre. Por último, el script de ejecución
-solo recibe el programa a ejecutar.
-Por ahora los posibles programas para ejecutar son: Spotify y Calculadora_______________________
+OBJETIVO
 
-El lexer esta planteado para reconocer las parabras clave de los comandos de voz o escritos, que luego se admiten en el parser. En el caso de las busquedas web se pasan por separado cada palabra de la consulta como cuertpo, para ser juntadas en el parser. Estos cuerpos de busqueda no pueden contener palabras clave, ya que proboca errores de sintaxis en el parser; realizando busquedas de solo partes del cuerpo y errores si las partes resultantes no cumplen con la gramática.
+El objetivo de este programa es reconocer y ejecutar, mediante voz o texto, una serie de comandos preestablecidos. En este caso,
+el programa nos permite realizar búsquedas en varios motores, nos permite crear archivos y carpetas y tambiñen nos permite 
+ejecutar programas. Los comandos que hemos implementado no son más que una pequeña parte de todo lo que se podría ejecutar
+en esta práctica, ya que añadir comandos nuevos nos resultaría muy sencillo debido a cómo hemos implementado el lexer y el
+párser. Bastaría con añadir algunas palabras clave al lexer, dependiendo del comando en cuestión, y luego añadirlas a mayores en
+el párser siguiendo la misma forma que las que ya implementamos.
+
+La propia salida del programa es la ejecución del comando. En nuestro caso, las búsquedas abren una pestaña nueva en el navegador
+por defecto con la búsqueda realizada en el motor que se introduce. La reación de carpetas o archivos se realiza sobre la raíz de
+este programa, y la ejecución de programas depende de cada distro de linux, pero en los casos de ejemplo que hemos añadido no
+debería haber mucho cambio.
+
+LEXER
+
+El lexer esta planteado para reconocer las parabras clave de los comandos de voz o escritos, que luego se admiten en el parser.
+Tenemos casos específicos para los buscadores, que estos incluyen la proposición "en", en caso de decir "búscame ___ en google",
+y también para identificar si queremos crear un archivo o carpeta, reconocemos tanto "una carpeta" o "un archivo" como "carpeta"
+o "archivo" a secas.
+
+En el caso de las busquedas web se pasan por separado cada palabra de la consulta como cuertpo, para ser juntadas en el parser.
+Estos cuerpos de busqueda no pueden contener palabras clave, ya que provoca errores de sintaxis en el parser; realizando 
+busquedas de solo partes del cuerpo y errores si las partes resultantes no cumplen con la gramática.
+
+PARSER
+
+Nos hemos decidido por una gramática sencilla, pero que nos permite el reconocimiento de varios comandos de voz seguidos. Por ejemplo,
+el usuario puede realizar una búsqueda, seguido de ejecutar un programa y luego crear un archivo. La única restricción que nos impone
+la gramática es que no se pueden usar las palabras clave en un cuerpo de búsqueda, o en el nombre de un archivo o carpeta a crear.
+
+Para poder ejecutar varios comandos, utilizamos la recursividad:
+	S : orden
+		;
+
+	orden : accion
+		| orden accion
+		;
+
+	accion : busqueda
+		| creacion
+		| ejecucion
+		;
+
+Las tres acciones posibles se desglosan en los comandos que tenemos disponibles:
+	busqueda : BUSCAR cuerpoRec ENGINE
+		| BUSCAR ENGINE cuerpoRec
+		;
+
+	cuerpoRec : CUERPO {$$ = $1;}
+		| cuerpoRec CUERPO {strcat(strcat($1," "),$2);}
+		;
+
+	creacion : CREAR CARPETA CUERPO
+		| CREAR ARCHIVO CUERPO
+		;
+
+	ejecucion : ABRIR PROGRAMA
+		;
+
+Tanto los terminales como los no temrinales son de tipo string.
+
+Para la ejecución de las instrucciones que reconoce el parser, hemos hecho un script en python para las búsquedas,
+mientras que para la creación de archivos o carpetas y para la ejecución de programas hemos utilizado comandos de
+linux, siendo creat, mkdir y system, respectivamente.
+
+EL script de búsqueda es ejecutado también con la función system(), y recibe como parámetro el nombre del buscador 
+y el propio cuerpo de la búsqueda. En caso de que no funcione, hay que revisar si la instalación de python en el 
+equipo se llama con el comando "python" o el comando "python3". En el caso de nuestras máquinas, usamos "python3".
+Con cambiarlo en las llamadas a system() ya sería suficiente.
+
+Por ahora los posibles programas para ejecutar son: nano, el editor de texto, libreoffice y firefox. 
+Son principalmente programas de ejemplo que se encuentran casi en cualquier distro de linux. Se podría añadir
+cualquier programa para ejecutar, pero nos decidimos por estos tres para simplemente mostrar que funciona.
 
 GESTIÓN DE ERRORES
 
@@ -74,3 +136,57 @@ Y por último para el comando de ejecutar programas, solo necesitamos cubrir un 
 					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un programa válido", $1, $2);
 					yyerror(str);
 				  }
+
+EJEMPLOS DE EJECUCIÓN
+
+Primero de todo, debemos compilar el programa con el makefile. Cabe decir que la compilacón produce un warning, y este se debemos
+a que le hemos dado el tipo String a la etiqueta error, que por defecto viene reservado para los errores. Pero de esta manera, nos permite
+imprimir por pantalla el contenido que se guardó en la etiqueta, permitiéndonos hacer una mejpopr gestión de errores.
+
+> make
+
+Para ejecutar el programa, tenemos tres opciones:
+
+	Ejecutar el archivo main.py con el flag -voice: Esto hará que se active el reconocedor de voz, y cuando acabe, escribirá
+	lo que reconoció en el archivo input y acto seguido ejecutará el lexer y el parser con el archivo input.
+
+	> python3 main.py -voice
+
+	Ejecutar el archivo main.py con el flag -text: Esto nos permitirá escribir por consola el input que deseamos, y en el momento
+	que pulsemos intro, escribirá en el archivo input y acto seguido ejecutará el lexer y el parser con el archivo input.
+
+	> python3 main.py -text
+
+	Ejecutar el archivo main.py sin flags o directamente ejecutar el Makefile: Esto simplemente ejecutará el programa
+	con lo que haya escrito en el archivo input. Este archivo lo podemos modificar con cualquier editor de texto.
+
+	> python3 main.py
+
+	o bien
+
+	> make run
+
+Los comandos a ejecutar no tienen formato aparte de las palabras resevadas. Es decir, en el archivo input podemos escribir todo
+seguido, o poner los espacios y saltos de línea que queramos.
+Es igual de válido:
+	abreme libreoffice crea una carpeta descargas
+
+que esto:
+	abreme libreoffice
+	crea una carpeta descargas
+
+EJEMPLOS DE INPUT
+
+búscame en duckduckgo como freir pimientos
+busca recetas famosas de comida en google
+ábreme libreoffice
+crea una carpeta descargas
+créame un archivo prueba
+
+EJEMPLOS CON ERRORES
+
+busca en google crea
+libros
+crea piedras
+busca abre
+ábreme spotify

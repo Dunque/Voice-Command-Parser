@@ -22,6 +22,11 @@ extern int yylineno;
 %%
 
 S : orden
+	| error {			 
+			 char str[300];
+			 sprintf(str, "Sintaxis errónea - Archivo input vacío");
+			 yyerror(str);
+		    }
 	;
 
 orden : accion
@@ -40,12 +45,12 @@ accion : busqueda
 
 busqueda : BUSCAR cuerpoRec ENGINE { 
 									 char str[300];
-									 sprintf(str, "python3 search.py \"%s\" \"%s\"", $3, $2);
+									 sprintf(str, "python3 search.py \"%s\" \"%s\" &", $3, $2);
 									 system (str);
 								   }
 	| BUSCAR ENGINE cuerpoRec {	
 								char str[300];
-								sprintf(str, "python3 search.py \"%s\" \"%s\"", $2, $3);
+								sprintf(str, "python3 search.py \"%s\" \"%s\" &", $2, $3);
 								system (str); 
 							  }
 	| BUSCAR cuerpoRec error {
@@ -88,7 +93,12 @@ creacion : CREAR CARPETA CUERPO	{if (mkdir($3,S_IRWXU | S_IRWXG | S_IROTH | S_IX
 				  		  }
 	;
 
-ejecucion : ABRIR PROGRAMA {if(system($2)==-1) printf("Error %s",strerror(errno));}
+ejecucion : ABRIR PROGRAMA {
+							 char str[300];
+							 sprintf(str, "%s &", $2);
+							 system (str); 
+							 if(system (str)==-1) printf("Error %s",strerror(errno));
+							}
 	| ABRIR error {
 					char str[300];
 					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un programa válido", $1, $2);
