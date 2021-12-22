@@ -175,6 +175,22 @@ que esto:
 	abreme libreoffice
 	crea una carpeta descargas
 
+PALABRAS CLAVE
+
+Para realizar búsquedas:
+
+	busca / búscame / encuentra / encuéntrame    <cuerpo de la búsqueda>    google / en google / bing / en bing / duckduckgo / en duckduckgo
+	busca / búscame / encuentra / encuéntrame    google / en google / bing / en bing / duckduckgo / en duckduckgo    <cuerpo de la búsqueda> 
+
+Para crear archivos o carpetas:
+
+	crea / créame    archivo / un archivo    <nombre del archivo>
+	crea / créame    carpeta / una carpeta    <nombre de la carpeta>
+
+Para ejecutar programas(solo hay tres de ejemplo):
+
+	abre / ábreme    nano / libreoffice / firefox
+
 EJEMPLOS DE INPUT
 
 búscame en duckduckgo como freir pimientos
