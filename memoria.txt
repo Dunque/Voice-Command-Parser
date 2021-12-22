@@ -10,8 +10,9 @@ nuestras máquinas, usamos "python3". Con cambiarlo en las llamadas a system() y
 El script de búsqueda recibe como parámetro el nombre del buscador y el propio cuerpo de la búsqueda, el 
 de creación recibe el tipo de fichero a crear (carpeta o archivo) y el nombre. Por último, el script de ejecución
 solo recibe el programa a ejecutar.
-Por ahora los posibles programas para ejecutar son: _______________________
+Por ahora los posibles programas para ejecutar son: Spotify y Calculadora_______________________
 
+El lexer esta planteado para reconocer las parabras clave de los comandos de voz o escritos, que luego se admiten en el parser. En el caso de las busquedas web se pasan por separado cada palabra de la consulta como cuertpo, para ser juntadas en el parser. Estos cuerpos de busqueda no pueden contener palabras clave, ya que proboca errores de sintaxis en el parser; realizando busquedas de solo partes del cuerpo y errores si las partes resultantes no cumplen con la gramática.
 
 GESTIÓN DE ERRORES
 
