@@ -178,7 +178,9 @@ que esto:
 EJEMPLOS DE INPUT
 
 búscame en duckduckgo como freir pimientos
+encuéntrame libros de recetas en bing
 busca recetas famosas de comida en google
+encuentra en duckduckgo soluciones para problemas
 ábreme libreoffice
 crea una carpeta descargas
 créame un archivo prueba
