@@ -88,7 +88,7 @@ creacion : CREAR CARPETA CUERPO	{if (mkdir($3,S_IRWXU | S_IRWXG | S_IROTH | S_IX
 				  		  }
 	;
 
-ejecucion : ABRIR PROGRAMA {}
+ejecucion : ABRIR PROGRAMA {if(system($2)==-1) printf("Error %s",strerror(errno));}
 	| ABRIR error {
 					char str[300];
 					sprintf(str, "Sintaxis errónea - %s - se encontró %s en vez de un programa válido", $1, $2);
